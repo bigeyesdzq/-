@@ -1,0 +1,45 @@
+html,body,ul,li,img,a,p,div,h1,h2,h3,h4,h5,h6{
+    margin: 0;
+    padding: 0; 
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    
+}
+html {
+    font-size: 14px;
+}
+a ,a:hover{
+    text-decoration: none;
+    color: #278DCE;
+}
+i {
+    font-style: normal;
+}
+ul {
+    list-style: none;
+}
+input,select,button {
+    outline: none !important;
+    border: none;
+    border: 1px  solid #ccc;
+}
+.f_left {
+    float: left;
+}
+.f_right {
+    float: right;
+}
+/* 清除浮动 */
+.clearfix::before,
+.clearfix::after {
+    content: '';
+    display: block;
+    height: 0;
+    line-height: 0px;
+    clear: both;
+    visibility: hidden;
+}
+input:-webkit-autofill {
+    background-color: #FAFFBD;
+    color: #000;
+}

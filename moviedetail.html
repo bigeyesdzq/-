@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>电影详情</title>
+    <link rel="shortcut icon" href="./images/icon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="./images/logo.png">
+    <link rel="stylesheet" href="./style/base.css">
+    <link rel="stylesheet" href="./style/banner.css">
+    <link rel="stylesheet" href="./style/css.css">
+</head>
+
+<body>
+    <header style="padding-bottom: 65px;">
+        <div>
+            <a href="javascript:;">
+                <img src="./images/logo.png" alt="">
+            </a>
+        </div>
+        <div class="navs f_left">
+            <ul>
+                <li>
+                    <a href="javascript:;">
+                        读书
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        电影
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        音乐
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        同城
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="search">
+            <input type="text" placeholder="电影、电视剧、综艺、影人">
+            <button>查询</button>
+        </div>
+    </header>
+    <div class="detail-content clearfix" id="movie-detail-pannel">
+        <!-- 电影详情-坑 -->
+    </div>
+    <div class="comment-area">
+        <ul>
+            <li>
+
+            </li>
+        </ul>
+    </div>
+    <footer style="margin-top:20px;">
+        <div class="clearfix;">
+            <ul>
+                <li>
+                    <a href="">© 2005－2017 douban.com, all rights reserved 北京豆网科技有限公司 </a>
+                </li>
+                <li>
+                    <a href="">京ICP证090015号</a> 京ICP备11027288号 网络视听许可证0110418号</li>
+                <li>京网文[2015]2026-368号 京公网安备11010502000728 新出网证(京)字129号</li>
+                <li>违法和不良信息举报电话：4008353331</li>
+            </ul>
+        </div>
+        <div class="clearfix;">
+            <ul>
+                <li>
+                    <a href="javascript:;">关于豆瓣</a>
+                </li>
+                <li>
+                    <a href="javascript:;">联系我们</a>
+                </li>
+                <li>
+                    <a href="javascript:;">免责声明</a>
+                </li>
+                <li>
+                    <a href="javascript:;">移动应用</a>
+                </li>
+                <li>
+                    <a href="javascript:;">豆瓣广告</a>
+                </li>
+            </ul>
+            <div class="footer-img">
+                <a href="http://report.12377.cn:13225/toreportinputNormal_anis.do">
+                    <img src="./images/footer.jpg" alt="">
+                </a>
+            </div>
+        </div>
+    </footer>
+    <!-- 返回顶部 -->
+    <div class="return_top">
+        <img src="./images/back-top.jpg" alt="">
+    </div>
+
+
+</body>
+<script src="./plugin/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="./plugin/template/template.js"></script>
+<script src="./js/index.js"></script>
+<script>
+    returnTop($('.return_top')); //传入jQuery对象
+    // https://api.douban.com/v2/movie/subject/1764796?id=26426026
+    window.onload = function () {
+        var path = 'https://api.douban.com/v2/movie/subject/';
+
+        var id = window.location.search.split('=')[1];
+        var url = path + id;
+        console.log(url);
+        var html = '';
+        $.ajax({
+            type: 'get',
+            url: url,
+            dataType: 'jsonp',
+            success: function (response) {
+                console.log(response);
+                var genres = response.genres.join('、');
+                html += '<div class="img-box f_left">' +
+                    '<a href="' + response.alt + '">' +
+                    '<img src=' + response.images.medium + ' alt="">' +
+                    '</a>' +
+                    '</div>' +
+                    ' <div class="movie-desc f_left">' +
+                    '<ul>' +
+                    ' <li>' +
+                    ' 片名：&emsp;<a href="javascript:;" class="color2">' + response.title + '</a>' +
+                    '</li>' +
+                    '<li>' +
+                    ' 地区:&emsp;<a href="">' + response.countries[0] + '</a>' +
+                    '</li>' +
+                    '<li>' +
+                    '年份：&emsp;<a href="">' + response.year + '</a>' +
+                    '</li>' +
+                    '<li>' +
+                    '标签:&emsp;<a href="">' +
+                    '<span class="color2">' +
+                    genres +
+                    '</span>' +
+                    '</a>' +
+                    '</li>' +
+                    '<li>' +
+                    '评分人数:&emsp;<span class="color1">' + response.ratings_count + '</span>' +
+                    '</li>' +
+                    '<li>' +
+                    '平均评分:&emsp;<span class="color1">' + response.rating.average + '</span>' +
+                    '</li>' +
+                    '</ul>' +
+                    '</div>' +
+                    '<div class="summery f_left">' +
+                    '<p>' + response.summary + '</p>' +
+                    '</div>';
+                $('#movie-detail-pannel').append(html);
+            }
+        })
+    }
+</script>
+
+</html>
